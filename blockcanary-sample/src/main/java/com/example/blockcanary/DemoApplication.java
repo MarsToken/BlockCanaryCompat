@@ -29,6 +29,11 @@ public class DemoApplication extends Application {
         super.onCreate();
         sContext = this;
         BlockCanary.install(this, new AppContext()).start();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Context getAppContext() {

@@ -24,7 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class DemoFragment extends Fragment implements View.OnClickListener {
@@ -73,14 +74,14 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button1:
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     Log.e(DEMO_FRAGMENT, "onClick of R.id.button1: ", e);
                 }
                 break;
             case R.id.button2:
-                for (int i = 0; i < 100; ++i) {
+                for (int i = 0; i < 100000; ++i) {
                     readFile();
                 }
                 break;
@@ -103,12 +104,15 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
     }
 
     private static void readFile() {
-        FileInputStream reader = null;
+        BufferedReader reader = null;
         try {
-            reader = new FileInputStream("/proc/stat");
-            while (reader.read() != -1) ;
+            reader = new BufferedReader(new FileReader("/proc/cpuinfo"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // System.out.println(line);
+            }
         } catch (IOException e) {
-            Log.e(DEMO_FRAGMENT, "readFile: /proc/stat", e);
+            Log.e(DEMO_FRAGMENT, "readFile: /proc/cpuinfo", e);
         } finally {
             if (reader != null) {
                 try {

@@ -50,7 +50,7 @@ public class BlockCanaryContext implements BlockInterceptor {
     /**
      * Provide application context.
      */
-    public Context provideContext() {
+    public static Context provideContext() {
         return sApplicationContext;
     }
 
